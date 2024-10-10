@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results - AI Search Engine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results for "{{ request.args.get('query') }}"</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert {{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <h2>Top 3 Search Results:</h2>
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <a href="{{ result.url }}" target="_blank">{{ result.title }}</a><br>
+                    <small>{{ result.snippet }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        {% if scraped %}
+            <h2>AI Response:</h2>
+            <p>{{ response }}</p>
+            <h3>Source: <a href="{{ selected_result.url }}" target="_blank">{{ selected_result.title }}</a></h3>
+        {% else %}
+            <p>Unable to retrieve content from the provided search results. Please try a different query.</p>
+        {% endif %}
+        
+        <a href="{{ url_for('index') }}">Back to Search</a>
+    </div>
+</body>
+</html>

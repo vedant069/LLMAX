@@ -1,0 +1,9 @@
+Flask
+requests
+sentence-transformers
+chromadb
+ollama
+scikit-learn
+beautifulsoup4
+pdfExtractor
+termcolor

@@ -1,0 +1,30 @@
+<!-- templates/search.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Search Engine - Web Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Search Engine - Web Search</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert {{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="{{ url_for('search') }}">
+            <input type="text" name="query" placeholder="Enter your search query" required>
+            <button type="submit">Search</button>
+        </form>
+        
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+</body>
+</html>

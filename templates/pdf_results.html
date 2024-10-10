@@ -1,0 +1,31 @@
+<!-- templates/pdf_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI PDF Reader - Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>AI PDF Reader</h1>
+        <p>Document ID: {{ document_id }}</p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert {{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="{{ url_for('pdf_results', document_id=document_id) }}">
+            <input type="text" name="pdf_query" placeholder="Enter your search query within the PDF" required>
+            <button type="submit">Search PDF</button>
+        </form>
+        
+        <a href="{{ url_for('pdf_search') }}">Upload Another PDF</a> | <a href="{{ url_for('home') }}">Home</a>
+    </div>
+</body>
+</html>
